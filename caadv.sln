@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "caadv", "source\caadv.vcxproj", "{CAE9C0C7-EA41-47A5-8236-CC9D4FABBBCC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{56C508B6-848B-436A-BB6A-1CA2F91FA054} = {56C508B6-848B-436A-BB6A-1CA2F91FA054}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{E84C79B0-300A-4183-B491-3DB7B41BC468}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "carpglib", "carpglib\carpglib.vcxproj", "{56C508B6-848B-436A-BB6A-1CA2F91FA054}"
+	ProjectSection(ProjectDependencies) = postProject
+		{76424983-1BE0-4E8D-9023-8AA316172A00} = {76424983-1BE0-4E8D-9023-8AA316172A00}
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA} = {54AE91C7-48D4-9C49-A5B1-0CED554CADFA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinearMath", "carpglib\external\Bullet\build\LinearMath.vcxproj", "{58D08522-C69F-904C-A7ED-733DA229F1BA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BulletCollision", "carpglib\external\Bullet\build\BulletCollision.vcxproj", "{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{58D08522-C69F-904C-A7ED-733DA229F1BA} = {58D08522-C69F-904C-A7ED-733DA229F1BA}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlib", "carpglib\external\zlib\contrib\vstudio\zlibstat.vcxproj", "{76424983-1BE0-4E8D-9023-8AA316172A00}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAE9C0C7-EA41-47A5-8236-CC9D4FABBBCC}.Debug|x86.ActiveCfg = Debug|Win32
+		{CAE9C0C7-EA41-47A5-8236-CC9D4FABBBCC}.Debug|x86.Build.0 = Debug|Win32
+		{CAE9C0C7-EA41-47A5-8236-CC9D4FABBBCC}.Release|x86.ActiveCfg = Release|Win32
+		{CAE9C0C7-EA41-47A5-8236-CC9D4FABBBCC}.Release|x86.Build.0 = Release|Win32
+		{56C508B6-848B-436A-BB6A-1CA2F91FA054}.Debug|x86.ActiveCfg = Debug|Win32
+		{56C508B6-848B-436A-BB6A-1CA2F91FA054}.Debug|x86.Build.0 = Debug|Win32
+		{56C508B6-848B-436A-BB6A-1CA2F91FA054}.Release|x86.ActiveCfg = Release|Win32
+		{56C508B6-848B-436A-BB6A-1CA2F91FA054}.Release|x86.Build.0 = Release|Win32
+		{58D08522-C69F-904C-A7ED-733DA229F1BA}.Debug|x86.ActiveCfg = Debug|Win32
+		{58D08522-C69F-904C-A7ED-733DA229F1BA}.Debug|x86.Build.0 = Debug|Win32
+		{58D08522-C69F-904C-A7ED-733DA229F1BA}.Release|x86.ActiveCfg = Release|Win32
+		{58D08522-C69F-904C-A7ED-733DA229F1BA}.Release|x86.Build.0 = Release|Win32
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Debug|x86.ActiveCfg = Debug|Win32
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Debug|x86.Build.0 = Debug|Win32
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release|x86.ActiveCfg = Release|Win32
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA}.Release|x86.Build.0 = Release|Win32
+		{76424983-1BE0-4E8D-9023-8AA316172A00}.Debug|x86.ActiveCfg = Debug|Win32
+		{76424983-1BE0-4E8D-9023-8AA316172A00}.Debug|x86.Build.0 = Debug|Win32
+		{76424983-1BE0-4E8D-9023-8AA316172A00}.Release|x86.ActiveCfg = Release|Win32
+		{76424983-1BE0-4E8D-9023-8AA316172A00}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{56C508B6-848B-436A-BB6A-1CA2F91FA054} = {E84C79B0-300A-4183-B491-3DB7B41BC468}
+		{58D08522-C69F-904C-A7ED-733DA229F1BA} = {E84C79B0-300A-4183-B491-3DB7B41BC468}
+		{54AE91C7-48D4-9C49-A5B1-0CED554CADFA} = {E84C79B0-300A-4183-B491-3DB7B41BC468}
+		{76424983-1BE0-4E8D-9023-8AA316172A00} = {E84C79B0-300A-4183-B491-3DB7B41BC468}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6BE61F3-1734-4DBD-92EA-99569E1DDAA7}
+	EndGlobalSection
+EndGlobal

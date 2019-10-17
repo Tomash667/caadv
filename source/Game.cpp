@@ -15,6 +15,7 @@ Game::~Game()
 
 void Game::Run()
 {
+	Logger::SetInstance(new ConsoleLogger);
 	engine->SetTitle("Caadv");
 	app::render->SetShadersDir("../carpglib/shaders");
 	engine->Start(this);

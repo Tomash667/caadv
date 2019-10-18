@@ -8,8 +8,10 @@ public:
 	Game();
 	~Game();
 	void Run();
+	bool OnInit() override;
 	void OnUpdate(float dt) override;
 
 private:
 	Engine* engine;
+	SceneNode* node;
 };

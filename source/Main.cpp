@@ -1,3 +1,4 @@
+#include "Pch.h"
 #include "GameCore.h"
 #include <AppEntry.h>
 #include "Game.h"

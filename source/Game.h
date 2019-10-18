@@ -13,5 +13,6 @@ public:
 
 private:
 	Engine* engine;
+	GameGui* game_gui;
 	SceneNode* node;
 };

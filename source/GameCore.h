@@ -1,4 +1,6 @@
 #pragma once
 
-#include <EnginePch.h>
 #include <EngineCore.h>
+
+class Game;
+class GameGui;

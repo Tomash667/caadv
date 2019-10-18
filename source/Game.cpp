@@ -1,5 +1,7 @@
+#include "Pch.h"
 #include "GameCore.h"
 #include "Game.h"
+#include "GameGui.h"
 #include <Engine.h>
 #include <Render.h>
 #include <Input.h>
@@ -47,6 +49,9 @@ bool Game::OnInit()
 	node->rot = Vec3::Zero;
 	node->mesh = app::res_mgr->Load<Mesh>("skrzynka.qmsh");
 	scene->Add(node);
+
+	game_gui = new GameGui;
+	app::gui->Add(game_gui);
 
 	return true;
 }

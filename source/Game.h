@@ -13,6 +13,7 @@ public:
 
 private:
 	Engine* engine;
+	FpsCamera* camera;
 	GameGui* game_gui;
 	SceneNode* node;
 };

@@ -8,7 +8,7 @@
 #include <SceneManager.h>
 #include <Scene.h>
 #include <SceneNode.h>
-#include <Camera.h>
+#include <FpsCamera.h>
 #include <ResourceManager.h>
 #include <MeshInstance.h>
 
@@ -35,14 +35,24 @@ bool Game::OnInit()
 
 	Scene* scene = new Scene;
 	scene->clear_color = Color(0.1f, 0.1f, 0.1f);
+	scene->fog_color = Color(0.1f, 0.1f, 0.1f);
+	scene->fog_range = Vec2(5, 10);
+	scene->use_fog = true;
 	app::scene_mgr->Add(scene);
 	app::scene_mgr->SetActive(scene);
 
-	Camera* camera = new Camera;
+	camera = new FpsCamera;
 	app::scene_mgr->Add(camera);
 	app::scene_mgr->SetActive(camera);
-	camera->from = Vec3(-1, 3, -3);
-	camera->to = Vec3(0, 0, 0);
+	camera->from = Vec3(2, 2, -2);
+	camera->LookAt(Vec3(0, 0, 0));
+
+	node = SceneNode::Get();
+	node->pos = Vec3::Zero;
+	node->rot = Vec3::Zero;
+	node->mesh = app::res_mgr->Load<Mesh>("floor.qmsh");
+	node->mesh_inst = nullptr;
+	scene->Add(node);
 
 	node = SceneNode::Get();
 	node->pos = Vec3::Zero;
@@ -80,4 +90,5 @@ void Game::OnUpdate(float dt)
 
 	node->rot.y += dt * 3;
 	app::scene_mgr->Update(dt);
+	camera->Update(dt);
 }

@@ -10,7 +10,7 @@
 #include <SceneNode.h>
 #include <Camera.h>
 #include <ResourceManager.h>
-#include <Mesh.h>
+#include <MeshInstance.h>
 
 Game::Game() : engine(new Engine)
 {
@@ -41,14 +41,23 @@ bool Game::OnInit()
 	Camera* camera = new Camera;
 	app::scene_mgr->Add(camera);
 	app::scene_mgr->SetActive(camera);
-	camera->from = Vec3(0, 1, -2);
+	camera->from = Vec3(-1, 3, -3);
 	camera->to = Vec3(0, 0, 0);
 
 	node = SceneNode::Get();
 	node->pos = Vec3::Zero;
 	node->rot = Vec3::Zero;
 	node->mesh = app::res_mgr->Load<Mesh>("skrzynka.qmsh");
+	node->mesh_inst = nullptr;
 	scene->Add(node);
+
+	SceneNode* human = SceneNode::Get();
+	human->pos = Vec3(1, 0, 0);
+	human->rot = Vec3::Zero;
+	human->mesh = app::res_mgr->Load<Mesh>("human.qmsh");
+	human->mesh_inst = new MeshInstance(human->mesh);
+	human->mesh_inst->Play("idzie", 0);
+	scene->Add(human);
 
 	game_gui = new GameGui;
 	app::gui->Add(game_gui);
@@ -70,4 +79,5 @@ void Game::OnUpdate(float dt)
 		engine->UnlockCursor();
 
 	node->rot.y += dt * 3;
+	app::scene_mgr->Update(dt);
 }

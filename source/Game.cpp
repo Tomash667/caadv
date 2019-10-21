@@ -33,7 +33,8 @@ bool Game::OnInit()
 {
 	app::res_mgr->AddDir("data");
 
-	Scene* scene = new Scene;
+	scene = new Scene;
+	scene->ambient_color = Color(0.4f, 0.4f, 0.4f);
 	scene->clear_color = Color(0.1f, 0.1f, 0.1f);
 	scene->fog_color = Color(0.1f, 0.1f, 0.1f);
 	scene->fog_range = Vec2(5, 10);
@@ -79,6 +80,8 @@ bool Game::OnInit()
 	game_gui = new GameGui;
 	app::gui->Add(game_gui);
 
+	light_rot = 0;
+
 	return true;
 }
 
@@ -98,4 +101,7 @@ void Game::OnUpdate(float dt)
 	node->rot.y += dt * 3;
 	app::scene_mgr->Update(dt);
 	camera->Update(dt);
+
+	light_rot += dt;
+	scene->light_dir = Vec3(sin(light_rot) * 4, 10, cos(light_rot) * 6).Normalized();
 }

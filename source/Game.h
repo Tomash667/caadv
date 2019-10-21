@@ -15,5 +15,7 @@ private:
 	Engine* engine;
 	FpsCamera* camera;
 	GameGui* game_gui;
+	Scene* scene;
 	SceneNode* node;
+	float light_rot;
 };

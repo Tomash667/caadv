@@ -55,6 +55,13 @@ bool Game::OnInit()
 	scene->Add(node);
 
 	node = SceneNode::Get();
+	node->pos = Vec3(-2, 0, 0);
+	node->rot = Vec3::Zero;
+	node->mesh = app::res_mgr->Load<Mesh>("tarcza_strzelnicza.qmsh");
+	node->mesh_inst = nullptr;
+	scene->Add(node);
+
+	node = SceneNode::Get();
 	node->pos = Vec3::Zero;
 	node->rot = Vec3::Zero;
 	node->mesh = app::res_mgr->Load<Mesh>("skrzynka.qmsh");
@@ -81,9 +88,9 @@ void Game::OnUpdate(float dt)
 		engine->Shutdown();
 	if(app::input->Shortcut(KEY_ALT, Key::Enter))
 		engine->SetFullscreen(!engine->IsFullscreen());
-	if(app::input->Pressed(Key::N1))
+	if(app::input->Pressed(Key::F5))
 		engine->SetWindowSize(Int2(1024, 768));
-	if(app::input->Pressed(Key::N2))
+	if(app::input->Pressed(Key::F9))
 		engine->SetWindowSize(Int2(1280, 1080));
 	if(app::input->Shortcut(KEY_CONTROL, Key::U))
 		engine->UnlockCursor();

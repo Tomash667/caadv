@@ -5,8 +5,9 @@
 #include <ResourceManager.h>
 #include <SceneManager.h>
 #include <Input.h>
+#include <Scene.h>
 
-GameGui::GameGui() : show_info(false)
+GameGui::GameGui(Scene* scene) : scene(scene), show_info(false)
 {
 	font = gui->GetFont("Arial", 16, 6);
 }
@@ -16,10 +17,19 @@ void GameGui::Draw(ControlDrawData*)
 	cstring text;
 	if(show_info)
 	{
-		text = Format("Fps: %g\n[1] Fog %s\n[2] Lighting %s\n---------------\n[F1] Hide help",
+		text = Format("Fps: %g\n"
+			"[1] Fog %s\n"
+			"[2] Dir light %s\n"
+			"[3] Point light %s\n"
+			"[4] Normal map %s\n"
+			"[5] Specular map %s\n"
+			"---------------\n[F1] Hide help",
 			FLT10(app::engine->GetFps()),
 			app::scene_mgr->fog_enabled ? "ON" : "OFF",
-			app::scene_mgr->lighting_enabled ? "ON" : "OFF");
+			scene->use_dir_light ? "ON" : "OFF",
+			scene->use_point_light ? "ON" : "OFF",
+			app::scene_mgr->normal_map_enabled ? "ON" : "OFF",
+			app::scene_mgr->specular_map_enabled ? "ON" : "OFF");
 	}
 	else
 		text = Format("Fps: %g\n---------------\n[F1] Show help", FLT10(app::engine->GetFps()));
@@ -35,5 +45,17 @@ void GameGui::Update(float dt)
 	if(app::input->Pressed(Key::N1))
 		app::scene_mgr->fog_enabled = !app::scene_mgr->fog_enabled;
 	if(app::input->Pressed(Key::N2))
-		app::scene_mgr->lighting_enabled = !app::scene_mgr->lighting_enabled;
+	{
+		scene->use_dir_light = !scene->use_dir_light;
+		scene->use_point_light = false;
+	}
+	if(app::input->Pressed(Key::N3))
+	{
+		scene->use_point_light = !scene->use_point_light;
+		scene->use_dir_light = false;
+	}
+	if(app::input->Pressed(Key::N4))
+		app::scene_mgr->normal_map_enabled = !app::scene_mgr->normal_map_enabled;
+	if(app::input->Pressed(Key::N5))
+		app::scene_mgr->specular_map_enabled = !app::scene_mgr->specular_map_enabled;
 }

@@ -17,5 +17,6 @@ private:
 	GameGui* game_gui;
 	Scene* scene;
 	SceneNode* node;
+	SceneNode* light, *light2, *light3;
 	float light_rot;
 };

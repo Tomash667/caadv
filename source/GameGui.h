@@ -5,7 +5,7 @@
 class GameGui : public Control
 {
 public:
-	GameGui(Scene* scene);
+	GameGui();
 	void Draw(ControlDrawData*) override;
 	void Update(float dt) override;
 

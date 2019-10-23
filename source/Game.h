@@ -9,14 +9,16 @@ public:
 	~Game();
 	void Run();
 	bool OnInit() override;
+	void OnCleanup() override;
 	void OnUpdate(float dt) override;
 
-private:
 	Engine* engine;
-	FpsCamera* camera;
+	GameCamera* camera;
+	FpsCamera* fps_camera;
 	GameGui* game_gui;
 	Scene* scene;
 	SceneNode* node;
 	SceneNode* light, *light2, *light3;
+	Player* player;
 	float light_rot;
 };

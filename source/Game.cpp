@@ -11,9 +11,15 @@
 #include <FpsCamera.h>
 #include <ResourceManager.h>
 #include <MeshInstance.h>
+#include "Player.h"
+#include "GameCamera.h"
+#include <Physics.h>
 
-Game::Game() : engine(new Engine)
+Game* game;
+
+Game::Game() : engine(new Engine), player(nullptr)
 {
+	game = this;
 }
 
 Game::~Game()
@@ -43,12 +49,6 @@ bool Game::OnInit()
 	app::scene_mgr->normal_map_enabled = false;
 	app::scene_mgr->specular_map_enabled = false;
 
-	camera = new FpsCamera;
-	app::scene_mgr->Add(camera);
-	app::scene_mgr->SetActive(camera);
-	camera->from = Vec3(2, 2, -2);
-	camera->LookAt(Vec3(0, 0, 0));
-
 	light = SceneNode::Get();
 	light->tint = Vec4(1, 0, 0, 1);
 	light->SetLight(5);
@@ -71,6 +71,15 @@ bool Game::OnInit()
 	node->mesh_inst = nullptr;
 	scene->Add(node);
 
+	btBoxShape* shape_floor = new btBoxShape(btVector3(8, 0.01f, 8));
+	app::physics->AddShape(shape_floor);
+
+	btCollisionObject* cobj = new btCollisionObject;
+	cobj->setCollisionShape(shape_floor);
+	cobj->setCollisionFlags(btCollisionObject::CF_STATIC_OBJECT);
+	cobj->getWorldTransform().setOrigin(btVector3(0.f, -0.005f, 0.f));
+	app::physics->GetWorld()->addCollisionObject(cobj, CG_LEVEL);
+
 	node = SceneNode::Get();
 	node->pos = Vec3(-2, 0, 0);
 	node->rot = Vec3::Zero;
@@ -83,19 +92,28 @@ bool Game::OnInit()
 	node->SetMesh(app::res_mgr->Load<Mesh>("skrzynka.qmsh"));
 	scene->Add(node);
 
-	SceneNode* human = SceneNode::Get();
-	human->pos = Vec3(1, 0, 0);
-	human->rot = Vec3::Zero;
-	human->SetMesh(new MeshInstance(app::res_mgr->Load<Mesh>("human.qmsh")));
-	human->mesh_inst->Play("idzie", 0);
-	scene->Add(human);
+	player = new Player;
+	scene->Add(player->node);
 
-	game_gui = new GameGui(scene);
+	camera = new GameCamera;
+	camera->target = player->node;
+	app::scene_mgr->Add(camera);
+	app::scene_mgr->SetActive(camera);
+
+	fps_camera = new FpsCamera;
+	app::scene_mgr->Add(fps_camera);
+
+	game_gui = new GameGui();
 	app::gui->Add(game_gui);
 
 	light_rot = 0;
 
 	return true;
+}
+
+void Game::OnCleanup()
+{
+	delete player;
 }
 
 void Game::OnUpdate(float dt)
@@ -111,9 +129,14 @@ void Game::OnUpdate(float dt)
 	if(app::input->Shortcut(KEY_CONTROL, Key::U))
 		engine->UnlockCursor();
 
-	camera->Update(dt);
+	player->Update(dt);
 
-	if(!app::input->Down(Key::Spacebar))
+	if(app::scene_mgr->GetActiveCamera() == camera)
+		camera->Update(dt, true);
+	else
+		fps_camera->Update(dt);
+
+	if(!app::input->Down(Key::Backspace))
 	{
 		node->rot.y += dt * 3;
 		app::scene_mgr->Update(dt);

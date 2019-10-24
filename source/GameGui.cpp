@@ -6,8 +6,11 @@
 #include <SceneManager.h>
 #include <Input.h>
 #include <Scene.h>
+#include "Game.h"
+#include <FpsCamera.h>
+#include "GameCamera.h"
 
-GameGui::GameGui(Scene* scene) : scene(scene), show_info(false)
+GameGui::GameGui() : scene(game->scene), show_info(false)
 {
 	font = gui->GetFont("Arial", 16, 6);
 }
@@ -18,12 +21,19 @@ void GameGui::Draw(ControlDrawData*)
 	if(show_info)
 	{
 		text = Format("Fps: %g\n"
+			"[WSAD] Move\n"
+			"[Spacebar] Jump\n"
+			"[Shift] Walk\n"
+			"[Backspace] Stop animations\n"
+			"[F] Toggle fps camera\n"
+			"---------------\n"
 			"[1] Fog %s\n"
 			"[2] Dir light %s\n"
 			"[3] Point light %s\n"
 			"[4] Normal map %s\n"
 			"[5] Specular map %s\n"
-			"---------------\n[F1] Hide help",
+			"---------------\n"
+			"[F1] Hide help",
 			FLT10(app::engine->GetFps()),
 			app::scene_mgr->fog_enabled ? "ON" : "OFF",
 			scene->use_dir_light ? "ON" : "OFF",
@@ -58,4 +68,15 @@ void GameGui::Update(float dt)
 		app::scene_mgr->normal_map_enabled = !app::scene_mgr->normal_map_enabled;
 	if(app::input->Pressed(Key::N5))
 		app::scene_mgr->specular_map_enabled = !app::scene_mgr->specular_map_enabled;
+	if(app::input->Pressed(Key::F))
+	{
+		if(app::scene_mgr->GetActiveCamera() == game->camera)
+		{
+			app::scene_mgr->SetActive(game->fps_camera);
+			game->fps_camera->from = game->camera->from;
+			game->fps_camera->LookAt(game->camera->to);
+		}
+		else
+			app::scene_mgr->SetActive(game->camera);
+	}
 }

@@ -43,7 +43,7 @@ void GameGui::Update(float dt)
 	if(app::input->Pressed(Key::F1))
 		show_info = !show_info;
 	if(app::input->Pressed(Key::N1))
-		app::scene_mgr->fog_enabled = !app::scene_mgr->fog_enabled;
+		scene->use_fog = !scene->use_fog;
 	if(app::input->Pressed(Key::N2))
 	{
 		scene->use_dir_light = !scene->use_dir_light;

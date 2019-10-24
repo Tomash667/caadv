@@ -78,6 +78,12 @@ bool Game::OnInit()
 	scene->Add(node);
 
 	node = SceneNode::Get();
+	node->pos = Vec3(-1, 0, 2);
+	node->rot = Vec3::Zero;
+	node->SetMesh(app::res_mgr->Load<Mesh>("intensiv.qmsh"));
+	scene->Add(node);
+
+	node = SceneNode::Get();
 	node->pos = Vec3::Zero;
 	node->rot = Vec3::Zero;
 	node->SetMesh(app::res_mgr->Load<Mesh>("skrzynka.qmsh"));
